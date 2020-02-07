@@ -1,0 +1,29 @@
+App\Entity\MediaObject:
+  madia_object_1:
+    filePath: "wine1.png"
+  madia_object_2:
+    filePath: "wine2.png"
+  madia_object_3:
+    filePath: "wine3.png"
+  madia_object_4:
+    filePath: "wine4.png"
+  madia_object_5:
+    filePath: "wine5.png"
+  madia_object_6:
+    filePath: "wine6.png"
+  madia_object_7:
+    filePath: "wine7.png"
+
+App\Entity\Wine:
+  wine_{1..10}:
+    name: <name()>
+    description: <text()>
+    stock: <numberBetween(1, 100)>
+    price: <randomFloat(2, 2, 20)>
+    image: "@madia_object_*"
+
+App\Entity\Comment:
+  comment_{1..20}:
+    text: <text()>
+    createdAt: <DateTime('now')>
+    wine: "@wine*"

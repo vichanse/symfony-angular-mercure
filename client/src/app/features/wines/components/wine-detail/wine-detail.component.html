@@ -1,0 +1,72 @@
+<h1 mat-dialog-title>Wine Details</h1>
+<section mat-dialog-content *ngIf="wines$ | async as selectedWine">
+    <mat-tab-group>
+        <mat-tab label="Wine Details">
+            <mat-list>
+                <mat-list-item>
+                    <mat-icon matListIcon>info</mat-icon>
+                    <h3 matLine>{{ selectedWine.name }}</h3>
+                    <p matLine>
+                        <span class="text-caption">Wine name</span>
+                    </p>
+                </mat-list-item>
+                <mat-list-item>
+                    <mat-icon matListIcon>card</mat-icon>
+                    <h3 matLine>{{ selectedWine.description }}</h3>
+                    <p matLine>
+                        <span class="text-caption">Description</span>
+                    </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                    <mat-icon matListIcon>attach_money</mat-icon>
+                    <h3 matLine>
+                        {{ selectedWine.price | currency: 'EUR' }}
+                    </h3>
+                    <p matLine>
+                        <span class="text-caption">Price</span>
+                    </p>
+                </mat-list-item>
+                <mat-list-item>
+                    <mat-icon
+                        matListIcon
+                        class="material-icons {{
+                            selectedWine.stock > 0 ? 'color_green' : 'color_red'
+                        }}"
+                    >
+                        lens
+                    </mat-icon>
+                    <p matLine>
+                        <span class="text-caption"
+                            >Wine stock availability</span
+                        >
+                    </p>
+                </mat-list-item>
+            </mat-list>
+        </mat-tab>
+        <mat-tab label="Comments">
+            <mat-list>
+                <mat-list-item *ngFor="let comment of selectedWine.comments">
+                    <mat-icon matListIcon>
+                        comment
+                    </mat-icon>
+
+                    <h4 matLine>
+                        {{ comment.createdAt | date: 'medium' }}
+                    </h4>
+                    <p matLine>
+                        <span class="text-caption">
+                            {{ comment.text }}
+                        </span>
+                    </p>
+                </mat-list-item>
+            </mat-list>
+        </mat-tab>
+    </mat-tab-group>
+</section>
+<section mat-dialog-actions>
+    <span class="fill-space"></span>
+    <button mat-icon-button color="warn" (click)="onCloseClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+</section>

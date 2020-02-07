@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    apiWineUrl: 'http://localhost:8080/api/wines.json',
+    merculeHubUrl: 'http://localhost:1337/.well-known/mercure',
 };
 
 /*

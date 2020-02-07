@@ -1,0 +1,10 @@
+<app-wine-list
+    [wines]="wines$ | async"
+    (viewWineDetails)="viewWineDetails($event)"
+    *ngIf="!(isLoading$ | async)"
+></app-wine-list
+><!-- indeterminate progress bar --->
+<section *ngIf="isLoading$ | async">
+    <h1 class="display-1">Loading Wines</h1>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</section>

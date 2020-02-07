@@ -1,0 +1,61 @@
+<mat-card>
+    <mat-card-header
+        ><mat-card-title>
+            <h1>Wines</h1>
+        </mat-card-title></mat-card-header
+    >
+    <mat-card-content>
+        <mat-table [dataSource]="winesDataSource" matSort [trackBy]="trackByFn">
+            <ng-container matColumnDef="image">
+                <!-- define the header for the id column. add sorting -->
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Image
+                </mat-header-cell>
+                <!-- define the cell that will contain the data for each record in the data source -->
+                <!-- row gives you access to the Account record for a given row in the data source -->
+                <mat-cell *matCellDef="let row">
+                    <img
+                        [src]="getImagePath(row)"
+                        [title]="row.name"
+                        [style.width.px]="imageWidth"
+                        [style.margin.px]="imageMargin"
+                    />
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Name
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    {{ row.name }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Price
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    {{ row.price | currency: 'EUR':'symbol' }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="info">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Details
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="onViewWineDetails(row)"
+                    >
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <!-- define the header row for the given columns -->
+            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+            <!-- define the rows and columns for each row in the data source -->
+            <mat-row *matRowDef="let row; columns: columns"></mat-row>
+        </mat-table>
+    </mat-card-content>
+</mat-card>
