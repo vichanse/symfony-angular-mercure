@@ -1,6 +1,7 @@
 <app-wine-list
     [wines]="wines$ | async"
     (viewWineDetails)="viewWineDetails($event)"
+    (stockValueChanged)="onStockValueChanged($event)"
     *ngIf="!(isLoading$ | async)"
 ></app-wine-list
 ><!-- indeterminate progress bar --->

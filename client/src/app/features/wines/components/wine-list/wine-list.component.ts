@@ -1,3 +1,5 @@
+import { WineStockUpdateDialogComponent } from './../wine-stock-update-dialog/wine-stock-update-dialog.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {
     Component,
     OnInit,
@@ -33,12 +35,14 @@ export class WineListComponent implements OnInit {
     }
 
     get columns(): string[] {
-        return ['image', 'name', 'price', 'info'];
+        return ['image', 'name', 'price', 'info', 'edit'];
     }
 
     @Output()
     viewWineDetails: EventEmitter<Wine> = new EventEmitter<Wine>();
-    constructor() {}
+    @Output()
+    stockValueChanged: EventEmitter<Wine> = new EventEmitter<Wine>();
+    constructor(private dialog: MatDialog) {}
 
     ngOnInit() {}
 
@@ -48,6 +52,32 @@ export class WineListComponent implements OnInit {
     }
     onViewWineDetails(wine: Wine) {
         this.viewWineDetails.emit(wine);
+    }
+
+    onStockEdit(wine: Wine) {
+        const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+
+        dialogConfig.data = {
+            stock: wine.stock,
+        };
+
+        const dialogRef = this.dialog.open(
+            WineStockUpdateDialogComponent,
+            dialogConfig,
+        );
+
+        dialogRef.afterClosed().subscribe(data => {
+            if (!this.isNullOrUndefined(data)) {
+                this.onStockValueChanged({ ...wine, stock: data.stock });
+            }
+        });
+    }
+
+    onStockValueChanged(wine: Wine) {
+        this.stockValueChanged.emit(wine);
     }
 
     isNullOrUndefined(value): boolean {

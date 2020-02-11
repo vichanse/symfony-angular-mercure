@@ -52,6 +52,20 @@
                     </button>
                 </mat-cell>
             </ng-container>
+            <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Edit
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="onStockEdit(row)"
+                    >
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
             <!-- define the header row for the given columns -->
             <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
             <!-- define the rows and columns for each row in the data source -->

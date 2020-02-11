@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    apiWineUrl: 'http://localhost:8080/api/wines.json',
+    apiWineUrl: 'http://localhost:8080/api/wines',
+    baseUrl: 'http://localhost:8080/api',
     merculeHubUrl: 'http://localhost:1337/.well-known/mercure',
 };
 

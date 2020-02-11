@@ -18,15 +18,15 @@ import { environment } from '../environments/environment';
         BrowserAnimationsModule,
         MaterialModule,
         environment.production ? [] : AkitaNgDevtools.forRoot(),
-        AkitaNgRouterStoreModule.forRoot()
+        AkitaNgRouterStoreModule.forRoot(),
     ],
 
     providers: [
         {
             provide: NG_ENTITY_SERVICE_CONFIG,
-            useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }
-        }
+            useValue: { baseUrl: environment.baseUrl },
+        },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

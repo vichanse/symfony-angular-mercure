@@ -1,3 +1,4 @@
+import { WineService } from './../../services/wine.service';
 import { WinesService } from './../../state/wines.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -5,11 +6,12 @@ import { Wine } from '../../state/wine.model';
 import { WinesQuery } from '../../state/wines.query';
 import { MatDialog } from '@angular/material/dialog';
 import { WineDetailComponent } from '../../components/wine-detail/wine-detail.component';
+import { APP_CONFIG } from '../../../../app.config';
 
 @Component({
     selector: 'app-wine-list-container',
     templateUrl: './wine-list.component.html',
-    styleUrls: ['./wine-list.component.scss']
+    styleUrls: ['./wine-list.component.scss'],
 })
 export class WineListContainerComponent implements OnInit {
     isLoading$: Observable<boolean>;
@@ -17,7 +19,8 @@ export class WineListContainerComponent implements OnInit {
     constructor(
         private winesService: WinesService,
         private winesQuery: WinesQuery,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private wineService: WineService,
     ) {}
 
     ngOnInit() {
@@ -30,10 +33,17 @@ export class WineListContainerComponent implements OnInit {
     viewWineDetails(wine: Wine) {
         const dialogRef = this.dialog.open(WineDetailComponent, {
             data: wine,
-            width: '75%'
+            width: '75%',
         });
-        dialogRef.afterOpened().subscribe(() => {
-            console.log('DIALOG CLOSED');
-        });
+    }
+
+    onStockValueChanged(wine: Wine) {
+        this.winesService
+            .updateWine(wine.id, { stock: Number(wine.stock) })
+            .subscribe({
+                error(error) {
+                    this.error = error;
+                },
+            });
     }
 }

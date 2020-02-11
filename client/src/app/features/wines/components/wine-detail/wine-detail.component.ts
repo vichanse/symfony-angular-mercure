@@ -44,8 +44,8 @@ export class WineDetailComponent implements OnInit {
             event => {
                 const data = JSON.parse(event.data);
                 const stock = data.stock;
-                console.log(data.id, stock);
-                this.wineStoreService.updateWine(data.id, { stock });
+
+                this.wineStoreService.updateWineStore(data.id, { stock });
             },
             error => console.log(error),
         );
