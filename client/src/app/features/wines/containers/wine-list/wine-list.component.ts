@@ -1,4 +1,3 @@
-import { WineService } from './../../services/wine.service';
 import { WinesService } from './../../state/wines.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -6,7 +5,6 @@ import { Wine } from '../../state/wine.model';
 import { WinesQuery } from '../../state/wines.query';
 import { MatDialog } from '@angular/material/dialog';
 import { WineDetailComponent } from '../../components/wine-detail/wine-detail.component';
-import { APP_CONFIG } from '../../../../app.config';
 
 @Component({
     selector: 'app-wine-list-container',
@@ -20,7 +18,6 @@ export class WineListContainerComponent implements OnInit {
         private winesService: WinesService,
         private winesQuery: WinesQuery,
         private dialog: MatDialog,
-        private wineService: WineService,
     ) {}
 
     ngOnInit() {

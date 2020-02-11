@@ -1,21 +1,24 @@
-import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { WinesService } from './features/wines/state/wines.service';
+import { NotificationService } from './shared/services/notification.service';
+import { Component, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { WineService } from './features/wines/services/wine.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
     viewportMobileQuery: MediaQueryList;
 
+    notifications$ = this.notificationService.count;
     private _viewportQueryListener: () => void;
 
     constructor(
         private changeDetectionRef: ChangeDetectorRef,
         private media: MediaMatcher,
-        private wineService: WineService,
+        private notificationService: NotificationService,
+        private winesService: WinesService,
     ) {
         this.viewportMobileQuery = media.matchMedia('(max-width: 600px)');
         this._viewportQueryListener = () => changeDetectionRef.detectChanges();
@@ -23,6 +26,14 @@ export class AppComponent implements OnDestroy {
             'change',
             this._viewportQueryListener,
         );
+    }
+
+    ngOnInit() {
+        this.winesService.sync().subscribe();
+    }
+
+    resetNotifications() {
+        this.notificationService.reset();
     }
 
     ngOnDestroy(): void {

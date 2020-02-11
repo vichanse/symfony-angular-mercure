@@ -31,7 +31,7 @@ $angular-material-v1-theme: mat-light-theme(
 // Define a custom typography config that overrides the font-family as well as the
 // `headlines` and `body-1` levels.
 $custom-typography: mat-typography-config(
-    $font-family: 'Roboto Mono'
+    $font-family: 'Roboto Mono',
 );
 
 // Override typography for all Angular Material, including mat-base-typography and all components.
@@ -71,4 +71,8 @@ body {
             margin-top: 25px;
         }
     }
+}
+
+.spacer {
+    flex: 1;
 }

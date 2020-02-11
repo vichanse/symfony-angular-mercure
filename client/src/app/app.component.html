@@ -44,6 +44,18 @@
                 <h1 routerLink="/" class="app-brand">
                     Wine store Manager
                 </h1>
+                <div class="spacer"></div>
+                <mat-icon
+                    *ngIf="notifications$ | async as notifications"
+                    [matBadge]="notifications"
+                    matBadgeOverlap="false"
+                    matBadgePosition="above before"
+                    matBadgeColor="warn"
+                    matBadgeHidden="false"
+                    (click)="resetNotifications()"
+                >
+                    notifications
+                </mat-icon>
             </mat-toolbar-row>
         </mat-toolbar>
         <main class="main-content-inner">
