@@ -12,38 +12,16 @@ FROM node:${NODE_VERSION}-alpine AS api_platform_client_development
 
 WORKDIR /usr/src/client
 
-RUN npm install -g @angular/cli
+RUN yarn global add @angular/cli
 
 # prevent the reinstallation of node modules at every changes in the source code
 COPY package.json package-lock.json ./
 RUN set -eux; \
-  npm install
+  yarn install
 
 COPY . ./
 
 VOLUME /usr/src/client/node_modules
 
-ENV HTTPS true
 EXPOSE 4200
 CMD ng serve --port 4200 --host 0.0.0.0
-
-
-# "build" stage
-# depends on the "development" stage above
-FROM api_platform_client_development AS api_platform_client_build
-
-ARG ANGULAR_APP_API_ENTRYPOINT
-
-RUN set -eux; \
-  yarn build
-
-
-# "nginx" stage
-# depends on the "build" stage above
-FROM nginx:${NGINX_VERSION}-alpine AS api_platform_client_nginx
-
-COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-
-WORKDIR /usr/src/client/dist/client
-
-COPY --from=api_platform_client_build /usr/src/client/dist/client ./
