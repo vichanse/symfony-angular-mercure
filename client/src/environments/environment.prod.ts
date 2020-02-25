@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiWineUrl: 'https://localhost:8443/api/wines.json',
-    baseUrl: 'http://localhost:8080/api',
-    merculeHubUrl: 'http://localhost:1337/.well-known/mercure',
+    apiWineUrl: 'https://winestore.osc-fr1.scalingo.io/api/wines.json',
+    baseUrl: 'https://winestore.osc-fr1.scalingo.io/api',
+    merculeHubUrl: 'https://winestore-mercure.osc-fr1.scalingo.io/hub',
 };
